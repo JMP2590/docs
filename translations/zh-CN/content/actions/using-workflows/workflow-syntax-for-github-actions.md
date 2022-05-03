@@ -391,9 +391,9 @@ steps:
   # Reference a specific commit
   - uses: actions/checkout@a81bbbf8298c0fa03ea29cdc473d45769f953675
   # Reference the major version of a release
-  - uses: actions/checkout@v2
+  - uses: {% data reusables.actions.action-checkout %}
   # Reference a specific version
-  - uses: actions/checkout@v2.2.0
+  - uses: {% data reusables.actions.action-checkout %}.2.0
   # Reference a branch
   - uses: actions/checkout@main
 ```
@@ -441,7 +441,7 @@ jobs:
   my_first_job:
     steps:
       - name: Check out repository
-        uses: actions/checkout@v2
+        uses: {% data reusables.actions.action-checkout %}
       - name: Use local my-action
         uses: ./.github/actions/my-action
 ```
@@ -495,22 +495,20 @@ jobs:
 
 将示例中的 `PERSONAL_ACCESS_TOKEN` 替换为您的密钥名称。
 
-{% raw %}
 ```yaml
 jobs:
   my_first_job:
     steps:
       - name: Check out repository
-        uses: actions/checkout@v2
+        uses: {% data reusables.actions.action-checkout %}
         with:
           repository: octocat/my-private-repo
           ref: v1.0
-          token: ${{ secrets.PERSONAL_ACCESS_TOKEN }}
+          token: {% raw %}${{ secrets.PERSONAL_ACCESS_TOKEN }}{% endraw %}
           path: ./.github/actions/my-private-repo
       - name: Run my action
         uses: ./.github/actions/my-private-repo/my-action
 ```
-{% endraw %}
 
 ### `jobs.<job_id>.steps[*].run`
 
@@ -747,11 +745,39 @@ steps:
 
 ## `jobs.<job_id>.strategy`
 
-{% data reusables.actions.jobs.section-using-a-build-matrix-for-your-jobs-strategy %}
+使用 `jobs.<job_id>.strategy` 为您的任务使用矩阵策略。 {% data reusables.actions.jobs.about-matrix-strategy %} 更多信息请参阅“[对作业使用矩阵](/actions/using-jobs/using-a-matrix-for-your-jobs)”。
 
 ### `jobs.<job_id>.strategy.matrix`
 
-{% data reusables.actions.jobs.section-using-a-build-matrix-for-your-jobs-matrix %}
+{% data reusables.actions.jobs.using-matrix-strategy %}
+
+#### 示例：使用单维矩阵
+
+{% data reusables.actions.jobs.single-dimension-matrix %}
+
+#### 示例：使用多维矩阵
+
+{% data reusables.actions.jobs.multi-dimension-matrix %}
+
+#### 示例：使用上下文创建矩阵
+
+{% data reusables.actions.jobs.matrix-from-context %}
+
+### `jobs.<job_id>.strategy.matrix.include`
+
+{% data reusables.actions.jobs.matrix-include %}
+
+#### 示例：展开配置
+
+{% data reusables.actions.jobs.matrix-expand-with-include %}
+
+#### 示例：添加配置
+
+{% data reusables.actions.jobs.matrix-add-with-include %}
+
+### `jobs.<job_id>.strategy.matrix.exclude`
+
+{% data reusables.actions.jobs.matrix-exclude %}
 
 ### `jobs.<job_id>.strategy.fail-fast`
 
@@ -848,7 +874,7 @@ services:
 
 ### `jobs.<job_id>.services.<service_id>.image`
 
-要用作运行操作的服务容器的 Docker 图像。 值可以是 Docker Hub 映像名称或注册表名称。
+要用作运行操作的服务容器的 Docker 镜像。 值可以是 Docker Hub 映像名称或注册表名称。
 
 ### `jobs.<job_id>.services.<service_id>.credentials`
 
