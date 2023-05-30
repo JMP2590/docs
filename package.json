@@ -141,7 +141,7 @@
     "husky": "^8.0.1",
     "japanese-characters": "^1.1.0",
     "jest": "^28.1.0",
-    "jest-environment-puppeteer": "5.0.4",
+    "jest-environment-puppeteer": "9.0.0",
     "jest-fail-on-console": "^2.2.3",
     "jest-github-actions-reporter": "^1.0.3",
     "jest-slow-test-reporter": "^1.0.0",
